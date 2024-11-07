@@ -1,0 +1,248 @@
+.container-body {
+  overflow-y: auto;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.box-container-1 {
+  width: 100%;
+  height: 700px;
+  background-image: url("../assets/modern_house.jpg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 1%;
+}
+
+.box-container-1-body {
+  width: clamp(35%, 300px, 50%);
+  /* width: 35%; */
+  height: 300px;
+  margin-left: 10%;
+  display: flex;
+  align-items: center;
+  margin-top: 2%;
+}
+
+.box-container-1-text {
+  width: clamp(35%, 300px, 70%);
+  height: 300px;
+  margin-left: 10%;
+}
+
+.text-body {
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(30px, 5vw, 80px);
+  font-weight: 700;
+}
+
+.text-content {
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(16px, 4vw, 20px);
+  opacity: 60%;
+}
+
+.see-all-listing {
+  background-color: white;
+  width: 80%;
+  height: 15%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  margin-left: 10%;
+}
+
+.see-all-listing-text {
+  margin-left: 3%;
+  cursor: pointer;
+}
+
+.box-container-2 {
+  width: 100%;
+  height: 712px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 1%;
+}
+
+.box-image {
+  height: 70%;
+  width: 50%;
+  border-radius: 20px;
+  background-image: url("../assets/meeting.jpg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.text-body-2 {
+  color: black;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(20px, 4vw, 50px);
+  font-weight: 700;
+}
+
+.text-content-2 {
+  color: black;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(12px, 2vw, 20px);
+  opacity: 60%;
+}
+
+.box-container-2-body {
+  width: 35%;
+  margin-left: 5%;
+}
+
+.body-2-button {
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(8px, 2vw, 17px);
+}
+
+.box-container-2-background {
+  width: clamp(20%, 200px, 100%);
+  /* width: 40%; */
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-top-right-radius: 20px;
+  cursor: pointer;
+  margin-top: 5%;
+}
+
+.box-container-3 {
+  width: 100%;
+  height: 712px;
+  background-color: #F5F5F5;
+  ;
+}
+
+.box-container-4 {
+  width: 100%;
+  height: 712px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 1%;
+}
+
+.box-image-4 {
+  height: 100%;
+  width: 50%;
+  border-radius: 20px;
+  background-image: url("../assets/meeting.jpg") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center;
+}
+
+.text-body-4 {
+  color: black;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(20px, 5vw, 50px);
+  font-weight: 700;
+}
+
+.text-content-4 {
+  color: black;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(8px, 3vw, 20px);
+  opacity: 60%;
+}
+
+.box-container-4-body {
+  width: 50%;
+  margin-left: 5%;
+}
+
+.body-4-button {
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(8px, 2vw, 17px);
+}
+
+.box-container-4-background {
+  width: clamp(20%, 200px, 100%);
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-top-right-radius: 20px;
+  cursor: pointer;
+  margin-top: 5%;
+}
+
+.box-container-5 {
+  width: 100%;
+  height: 712px;
+  background-image: linear-gradient(225.52deg, #271A00 0.45%, rgba(0, 0, 0, 0.98) 100.47%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.text-body-5 {
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(20px, 5vw, 50px);
+  font-weight: 700;
+}
+
+.text-content-5 {
+  color: grey;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(8px, 3vw, 20px);
+  opacity: 80%;
+}
+
+.box-container-5-body {
+  width: 50%;
+  margin-left: 5%;
+}
+
+.body-5-button {
+  color: black;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(8px, 2vw, 17px);
+}
+
+.box-container-5-background {
+  width: clamp(30%, 200px, 100%);
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-top-right-radius: 20px;
+  cursor: pointer;
+  margin-top: 5%;
+  margin-left: 35%;
+
+  @media (max-width: 768px) {
+    margin-left: 5%;
+  }
+
+}
+
+.box-container-6 {
+  width: 100%;
+  height: 712px;
+}
