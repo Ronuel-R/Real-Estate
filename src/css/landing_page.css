@@ -127,7 +127,51 @@
   width: 100%;
   height: 712px;
   background-color: #F5F5F5;
-  ;
+
+}
+
+.text-body-3 {
+  color: black;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(20px, 5vw, 50px);
+  font-weight: 700;
+  margin-left: 10%;
+}
+
+.box-container-3-search {
+  margin-left: 10% !important;
+  margin-top: 3%;
+}
+
+.search .MuiOutlinedInput-root {
+  width: 100%;
+  height: 75px;
+  background-color: white;
+  top: '50%';
+  transform: translateY(-15%);
+  margin-bottom: 10%;
+}
+
+.searchfield-1 .MuiOutlinedInput-root {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.searchfield-4 .MuiOutlinedInput-root {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.container-3-card {
+  border-radius: 20px !important;
+  width: 280px;
+}
+
+.card-name {
+  color: black;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: clamp(8px, 3vw, 24px);
+  font-weight: 700 !important;
 }
 
 .box-container-4 {

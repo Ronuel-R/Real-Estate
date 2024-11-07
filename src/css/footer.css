@@ -30,7 +30,7 @@
 .footer-nav-top {
     color: white;
     display: inline;
-    font-size: clamp(8px, 2vw, 40px);
+    font-size: clamp(8px, 2vw, 80px) !important;
 
 
 }
