@@ -141,6 +141,7 @@
       const [value, setValue] = useState(1);
       const theme = useTheme();
       const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Adjust breakpoint as needed
+      const displayedHouses = isMobile ? houseList.slice(0, 2) : houseList; // Show only 2 on mobile
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -214,8 +215,8 @@
                     </Grid>
                   </Grid>
                   <Box className='box-container-3-body'>
-                    <Grid container row spacing={2}>
-                      {houseList.map((house)=>(
+                    <Grid container row spacing={2} >
+                      {displayedHouses.map((house)=>(
                         <Grid item size={{ xs: 6, md: 4 }} key={house.id}>
                           <Card className='container-3-card'>
                             <CardMedia
