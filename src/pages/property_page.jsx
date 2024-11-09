@@ -21,6 +21,10 @@
     import GarageIcon from '@mui/icons-material/Garage';
     import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
     import CheckIcon from '@mui/icons-material/Check';
+    import 'slick-carousel/slick/slick.css';
+    import 'slick-carousel/slick/slick-theme.css';
+    import Slider from 'react-slick';
+        import { Card, CardContent, CardMedia } from '@mui/material';
 
   const imageList = [
     {id: 1, image:houseImage},
@@ -29,7 +33,33 @@
     {id: 4, image:houseImage},
     {id: 5, image:houseImage},
 ]
+const similarListings = [
+    { id: 1, title: 'Modern Apartment', description: '2 Bed, 1 Bath', price: '$1200/month', image: houseImage },
+    { id: 2, title: 'Cozy Condo', description: '1 Bed, 1 Bath', price: '$900/month', image: houseImage },
+    { id: 3, title: 'Luxury Villa', description: '4 Bed, 3 Bath', price: '$3000/month', image: houseImage},
+    { id: 4, title: 'Beach House', description: '3 Bed, 2 Bath', price: '$2500/month', image: houseImage },
+    { id: 5, title: 'City Loft', description: '1 Bed, 1 Bath', price: '$1300/month', image: houseImage },
+    // Add more listings as needed
+  ];
+
+
   function ProductPage() {
+    const settings = {         
+        infinite: true,         
+        speed: 500,             
+        slidesToShow: 3,        
+        slidesToScroll: 1,      
+        autoplay: true,         
+        autoplaySpeed: 2000,    
+        responsive: [
+          {
+            breakpoint: 768,      
+            settings: {
+              slidesToShow: 1,    
+            },
+          },
+        ],
+      };
     return (
       <>
           <Container className='property-container-body' maxWidth>
@@ -73,7 +103,7 @@
                         </Carousel>
                     </Grid>
                     <Grid item size={{ md: 4  }}>
-                        <Paper className='product-inquire' elevation={5}>
+                        <Paper className='product-inquire' elevation={5} >
                             <Grid container direction={'row'} spacing={2} sx={{width:'100%',display:'flex',alignItems:'center',justifyContent:'center'}}>
                                 <Paper className='product-user-profile'>
                                     <Avatar alt="Remy Sharp" src={UserImage} sx={{marginLeft:'5%'}}/>
@@ -171,6 +201,38 @@
                         </Stack>
                         </Container>
                         </Paper>
+                    </Grid>
+                    <Grid item size={{ md: 12 }}>
+                    <Box sx={{ padding: 3 }}>
+      <Typography variant="h5" sx={{ fontFamily: 'DM Sans', fontWeight: '700', marginBottom: 2 }}>
+        Similar Listings
+      </Typography>
+      <Slider {...settings}>
+        {similarListings.map((listing) => (
+          <Box key={listing.id} sx={{ padding: '0 8px', marginBottom: 2 }}>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                height="140"
+                image={listing.image}
+                alt={listing.title}
+              />
+              <CardContent>
+                <Typography variant="h6" component="div">
+                  {listing.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {listing.description}
+                </Typography>
+                <Typography variant="body2" sx={{ fontWeight: '700', marginTop: 1 }}>
+                  {listing.price}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
+        ))}
+      </Slider>
+    </Box>
                     </Grid>
                 </Grid>
             </Container>
