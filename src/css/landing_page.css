@@ -132,12 +132,13 @@
 
 .box-container-3-body {
   padding-top: 1% !important;
+
 }
 
 .text-body-3 {
   color: black;
   font-family: 'DM Sans', sans-serif;
-  font-size: clamp(20px, 5vw, 50px);
+  font-size: clamp(20px, 5vw, 30px);
   font-weight: 700;
   margin-left: 10%;
 }
@@ -153,10 +154,9 @@
 
 .search .MuiOutlinedInput-root {
   width: clamp(10%, 30vw, 100%) !important;
-  height: 75px;
+  height: 50px;
   background-color: white;
   top: '50%';
-  transform: translateY(-15%);
   margin-bottom: 10%;
 }
 
@@ -172,8 +172,15 @@
 
 .container-3-card {
   border-radius: 20px !important;
-  /* width: 280px; */
   width: clamp(10px, 40vw, 280px) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.container-3-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card-name {

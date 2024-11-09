@@ -24,6 +24,7 @@
     import BathtubIcon from '@mui/icons-material/Bathtub';
     import Grid3x3Icon from '@mui/icons-material/Grid3x3';
     import houseImage from '../assets/house.jpg';
+
     const users = [
       {
         id: 1,
@@ -217,32 +218,32 @@
                   <Box className='box-container-3-body'>
                     <Grid container row spacing={2} >
                       {displayedHouses.map((house)=>(
-                        <Grid item size={{ xs: 6, md: 4 }} key={house.id}>
-                          <Card className='container-3-card'>
-                            <CardMedia
-                              sx={{ height: 140 }}
-                              image={house.file}
-                              title="house"
-                            />
-                            <CardContent>
-                              <Typography className='card-name' gutterBottom variant="h5" component="div">
-                                {house.name}
-                              </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                            <Box sx={{width:'100%',alignItems: 'center', padding: 1, border:'1px solid black' }}>
-                                <Typography variant="body2"><BedIcon sx={{ marginRight: 1,color:'black',verticalAlign: 'middle' }} />{house.rooms}</Typography> 
-                              </Box>
-                              
-                              <Box sx={{width:'100%',alignItems: 'center', padding: 1,border:'1px solid black' }}>
-                                <Typography variant="body2"><BathtubIcon sx={{ marginRight: 1,color:'black',verticalAlign: 'middle' }}  />{house.bathroom}</Typography>
-                              </Box>
-                              
-                              <Box sx={{width:'100%',alignItems: 'center', padding: 1,border:'1px solid black' }}>
-                                <Typography variant="body2"><Grid3x3Icon sx={{ marginRight: 1,color:'black',verticalAlign: 'middle' }}/>{house.grid}</Typography>
-                              </Box>
-                            </CardActions>
-                          </Card>
+                        <Grid item size={{ xs: 6, md: 4 }} key={house.id} >
+                            <Card className='container-3-card' onClick={() => navigate(`/product/${house.id}`)}>
+                              <CardMedia
+                                sx={{ height: 140 }}
+                                image={house.file}
+                                title="house"
+                              />
+                              <CardContent>
+                                <Typography className='card-name' gutterBottom variant="h5" component="div">
+                                  {house.name}
+                                </Typography>
+                              </CardContent>
+                              <CardActions disableSpacing>
+                              <Box sx={{width:'100%',alignItems: 'center', padding: 1, border: '1px solid rgba(128, 128, 128, 0.5)' }}>
+                                  <Typography variant="body2"><BedIcon sx={{ marginRight: 1,color:'black',verticalAlign: 'middle' }} />{house.rooms}</Typography> 
+                                </Box>
+                                
+                                <Box sx={{width:'100%',alignItems: 'center', padding: 1,border: '1px solid rgba(128, 128, 128, 0.5)' }}>
+                                  <Typography variant="body2"><BathtubIcon sx={{ marginRight: 1,color:'black',verticalAlign: 'middle' }}  />{house.bathroom}</Typography>
+                                </Box>
+                                
+                                <Box sx={{width:'100%',alignItems: 'center', padding: 1,border: '1px solid rgba(128, 128, 128, 0.5)' }}>
+                                  <Typography variant="body2"><Grid3x3Icon sx={{ marginRight: 1,color:'black',verticalAlign: 'middle' }}/>{house.grid}</Typography>
+                                </Box>
+                              </CardActions>
+                            </Card>
                     </Grid>
                       ))}
                   </Grid>

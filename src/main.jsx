@@ -1,5 +1,6 @@
 import './css/index.css'
 import LandingPage from './pages/landing_page.jsx'
+import ProductPage from './pages/property_page.jsx';
 import * as ReactDOM from "react-dom";
 import {
   createBrowserRouter,
@@ -9,7 +10,11 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage  />,
+    element: <LandingPage  />,  
+  },
+  {
+    path: "/product/:id",
+    element: <ProductPage  />,
   },
 ]);
 
