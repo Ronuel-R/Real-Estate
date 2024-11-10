@@ -5,9 +5,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function DeleteListing({handleClose}){
+export default function DeleteListing({handleClose,Submit}){
     return (
         <>
+        <form onSubmit={Submit}>
         <DialogTitle>Delete Listing</DialogTitle>
             <DialogContent>
               <DialogContentText>
@@ -18,6 +19,7 @@ export default function DeleteListing({handleClose}){
               <Button onClick={handleClose} sx={{color:'red'}}>Cancel</Button>
               <Button type="submit">Confirm</Button>
             </DialogActions>
+            </form>
     </>
     )
 }

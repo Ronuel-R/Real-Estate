@@ -14,7 +14,7 @@
     import Tabs from '@mui/material/Tabs';
     import Tab from '@mui/material/Tab';
     import AppBar from '@mui/material/AppBar';
-    import {  Avatar, Button, IconButton, TextField, Typography,useMediaQuery,useTheme } from '@mui/material';
+    import {  Avatar, TextField, Typography,useMediaQuery,useTheme } from '@mui/material';
     import Autocomplete from '@mui/material/Autocomplete';
     import Card from '@mui/material/Card';
     import CardActions from '@mui/material/CardActions';
@@ -26,8 +26,8 @@
     import houseImage from '../assets/house.jpg';
     import DeleteIcon from '@mui/icons-material/Delete';  
     import Dialog from '@mui/material/Dialog';
-import DeleteListing from '../components/modals/delete_listing';
-import CreateListing from '../components/modals/create_listing';
+    import DeleteListing from '../components/modals/delete_listing';
+    import CreateListing from '../components/modals/create_listing';
 
 
     const users = [
@@ -175,32 +175,6 @@ import CreateListing from '../components/modals/create_listing';
     };
       return (
         <>
-        <Dialog
-            open={openDeleteListing}
-            onClose={handleCloseDeleteListing}
-            PaperProps={{
-              component: 'form',
-              onSubmit: (event) => {
-                event.preventDefault();
-                handleCloseDeleteListing();
-              },
-            }}
-          >
-            <DeleteListing handleClose={handleCloseDeleteListing}/>
-          </Dialog>
-          <Dialog
-            open={openCreateListing}
-            onClose={handleCloseCreateListing}
-            PaperProps={{
-              component: 'form',
-              onSubmit: (event) => {
-                event.preventDefault();
-                handleCloseCreateListing();
-              },
-            }}
-          >
-            <CreateListing handleClose={handleCloseCreateListing}/>
-          </Dialog>
             <Container className='container-body' maxWidth>
             <Box className='box-container-1'>
               <Header/>

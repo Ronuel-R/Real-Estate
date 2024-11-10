@@ -1,89 +1,275 @@
     /* eslint-disable react/prop-types */
     /* eslint-disable no-unused-vars */
-    import { useState } from 'react'
-    import '../css/property_page.css'
+    import { useEffect, useState } from 'react'
+    import '../css/admin_dashboard.css'
     import Container from '@mui/material/Container';
     import Box from '@mui/material/Box';
     import '@fontsource/dm-sans/400.css';
     import Header from '../components/header';
     import Footer from '../components/footer';
-    import { Carousel } from "react-responsive-carousel";
-    import houseImage from '../assets/house.jpg';
     import "react-responsive-carousel/lib/styles/carousel.min.css";
     import Grid from '@mui/material/Grid2';
-    import { Chip, Divider, Paper, Stack, TextField, Typography } from '@mui/material';
-    import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-    import Avatar from '@mui/material/Avatar';
-    import UserImage from '../assets/avatar.jpg'
+    import { Button, CardActions, Chip, Dialog, Divider, IconButton, Paper, Stack, TextField, Typography } from '@mui/material';
     import BedIcon from '@mui/icons-material/Bed';
     import BathtubIcon from '@mui/icons-material/Bathtub';
     import Grid3x3Icon from '@mui/icons-material/Grid3x3';
-    import GarageIcon from '@mui/icons-material/Garage';
-    import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-    import CheckIcon from '@mui/icons-material/Check';
     import 'slick-carousel/slick/slick.css';
     import 'slick-carousel/slick/slick-theme.css';
-    import Slider from 'react-slick';
-        import { Card, CardContent, CardMedia } from '@mui/material';
-
-  const imageList = [
-    {id: 1, image:houseImage},
-    {id: 2, image:houseImage},
-    {id: 3, image:houseImage},
-    {id: 4, image:houseImage},
-    {id: 5, image:houseImage},
-]
-const similarListings = [
-    { id: 1, title: 'Modern Apartment', description: '2 Bed, 1 Bath', price: '$1200/month', image: houseImage },
-    { id: 2, title: 'Cozy Condo', description: '1 Bed, 1 Bath', price: '$900/month', image: houseImage },
-    { id: 3, title: 'Luxury Villa', description: '4 Bed, 3 Bath', price: '$3000/month', image: houseImage},
-    { id: 4, title: 'Beach House', description: '3 Bed, 2 Bath', price: '$2500/month', image: houseImage },
-    { id: 5, title: 'City Loft', description: '1 Bed, 1 Bath', price: '$1300/month', image: houseImage },
-    // Add more listings as needed
-  ];
-
+    import { Card, CardContent, CardMedia } from '@mui/material';
+    import { useNavigate } from "react-router-dom";
+    import DeleteIcon from '@mui/icons-material/Delete';  
+    import DeleteListing from '../components/modals/delete_listing';
+    import CreateListing from '../components/modals/create_listing';
+    import AdminLogin from '../components/modals/login';
+    import axios from '../components/axios/axios';
+    import EditIcon from '@mui/icons-material/Edit';
+import UpdateListing from '../components/modals/update_listing';
+import { useMediaQuery, useTheme} from '@mui/material';
 
   function AdminPage() {
-    const settings = {         
-        infinite: true,         
-        speed: 500,             
-        slidesToShow: 3,        
-        slidesToScroll: 1,      
-        autoplay: true,         
-        autoplaySpeed: 2000,    
-        responsive: [
+    const navigate = useNavigate();
+    const [openDeleteListing, setOpenDeleteListing] = useState(false);
+    const [openCreateListing, setOpenCreateListing] = useState(false);
+    const [openUpdateListing, setOpenUpdateListing] = useState(false);
+    const [openAdminLogin, setOpenAdminLogin] = useState(true);
+    const [propertyInfo, setPropertyInfo] = useState({})
+    const [propertyInfoUpdate, setPropertyInfoUpdate] = useState({})
+    const [selectedVal, setSelectedVal] = useState(0);
+    const [propertyList, setPropertyList] = useState([]);
+    const [loginInfo, setLoginInfo] = useState({email:'',password:''});
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const handleCloseAdminLogin = () => {
+      setOpenAdminLogin(false);
+    };
+
+    const handleClickOpenUpdateListing = (uid) => {
+      setOpenUpdateListing(true);
+      setSelectedVal(uid)
+    };
+
+    const handleCloseUpdateListing = () => {
+      setOpenUpdateListing(false);
+    };
+
+    const handleClickOpenDeleteListing = (uid) => {
+      setOpenDeleteListing(true);
+      setSelectedVal(uid)
+    };
+
+    const handleCloseDeleteListing = () => {
+      setOpenDeleteListing(false);
+    };
+    const handleClickOpenCreateListing = () => {
+      setOpenCreateListing(true);
+    };
+
+    const handleCloseCreateListing = () => {
+      setOpenCreateListing(false);
+    };
+    const fetch = async () => {
+      try {
+        const response = await axios.get(
+          "/real_estate/property_list/",
           {
-            breakpoint: 768,      
-            settings: {
-              slidesToShow: 1,    
+            headers: {
+              "Content-Type": "multipart/form-data",
             },
-          },
-        ],
-      };
+          }
+        );
+        setPropertyList(response.data.data)
+      } catch (error) {
+        console.error("Error fetching property:", error);
+      }
+    };
+
+    useEffect(() => {
+      if (localStorage.getItem("api-secret-key")){
+        handleCloseAdminLogin();
+      }
+      fetch();
+    }, []);
+
     return (
       <>
-          <Container className='property-container-body' maxWidth>
-            <Box className='property-container-1'>
+      <Dialog
+            open={openDeleteListing}
+            onClose={handleCloseDeleteListing}
+          >
+            <DeleteListing handleClose={handleCloseDeleteListing}
+            Submit={(event) => {
+              event.preventDefault();
+              const deleteProperty = async () => {
+                try {
+                  const api_secret_key = localStorage.getItem("api-secret-key");
+                  const authorization = localStorage.getItem("authorization");
+                  const response = await axios.post(
+                    `/real_estate/delete/${selectedVal}`,
+                    {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                        "API-SECRET-KEY": api_secret_key,
+                        "AUTHORIZATION": authorization,
+                      },
+                    }
+                  );
+                  if (response.data.message == 'Success'){
+                    // put toast here
+                    console.log('success')
+                    fetch();
+
+                    handleCloseDeleteListing();
+                  }
+                } catch (error) {
+                  console.error("Error fetching property:", error);
+                }
+              };
+              deleteProperty();
+            }}
+            />
+          </Dialog>
+          <Dialog
+            open={openCreateListing}
+            onClose={handleCloseCreateListing}
+          >
+            <CreateListing handleClose={handleCloseCreateListing}
+            propertyInfo ={propertyInfo}
+            setPropertyInfo={setPropertyInfo}
+            Submit={(event) => {
+              event.preventDefault();
+              const create = async () => {
+                try {
+                  const api_secret_key = localStorage.getItem("api-secret-key");
+                  const authorization = localStorage.getItem("authorization");
+                  const response = await axios.post(
+                    "/real_estate/create/",
+                    propertyInfo,
+                    {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                        "API-SECRET-KEY": api_secret_key,
+                        "AUTHORIZATION": authorization,
+                      },
+                    }
+                  );
+                  if (response.data.message == 'Success'){
+                    // put toast here
+                    console.log('success')
+                    fetch();
+
+                    handleCloseCreateListing();
+                  }
+                } catch (error) {
+                  console.error("Error fetching property:", error);
+                }
+              };
+              create();
+            }}
+            />
+          </Dialog>
+            <Dialog
+              open={openUpdateListing}
+              onClose={handleCloseUpdateListing}
+            >
+              <UpdateListing handleClose={handleCloseUpdateListing}
+              selectedVal = {selectedVal}
+              propertyInfoUpdate ={propertyInfoUpdate}
+              setPropertyInfoUpdate={setPropertyInfoUpdate}
+              Submit={(event) => {
+                event.preventDefault();
+                
+
+                const update = async () => {
+                  try {
+                    const api_secret_key = localStorage.getItem("api-secret-key");
+                    const authorization = localStorage.getItem("authorization");
+                    const response = await axios.post(
+                      `/real_estate/update/${selectedVal}`,
+                      propertyInfoUpdate,
+                      {
+                        headers: {
+                          "Content-Type": "multipart/form-data",
+                          "API-SECRET-KEY": api_secret_key,
+                          "AUTHORIZATION": authorization,
+                        },
+                      }
+                    );
+                    if (response.data.message == 'Success'){
+                      // put toast here
+                      console.log('success')
+                      fetch();
+                      handleCloseUpdateListing();
+
+                    }
+                  } catch (error) {
+                    if (error.response.data.code =='token_not_valid'){
+                      localStorage.clear()
+                      window.location.reload();
+                    }
+                    console.error("Error fetching property:", error);
+                  }
+                };
+                update();
+                
+              }}
+              />
+            </Dialog>
+          <Dialog
+            open={openAdminLogin} 
+          >
+            <AdminLogin
+            loginInfo={loginInfo} 
+            setLoginInfo={setLoginInfo}
+            Submit={(event) => {
+              event.preventDefault();
+              const login = async () => {
+                try {
+                  const response = await axios.post(
+                    "/real_estate/login/",
+                    loginInfo,
+                    {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                      },
+                    }
+                  );
+                  if (response.data.message == 'Success'){
+                    localStorage.setItem("api-secret-key", response.data.api_secret);
+                    localStorage.setItem("authorization", 'Bearer ' + response.data.access_token);
+                    handleCloseAdminLogin();
+                  }
+                } catch (error) {
+                  console.error("Error fetching property:", error);
+                }
+              };
+              login();
+            }}
+            />
+          </Dialog>
+          <Container className='admin-container-body' maxWidth>
+            <Box className='admin-container-1'>
                 <Header/>
                 <Divider sx={{ borderColor: '#FFFFFF', width: '100%',opacity:'0.1', margin: '0 auto',mt:'2%' }} />
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%',padding:2 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '95%',padding:2 }}>
 
                   <Box sx={{
                     display: 'flex', 
                     flexDirection: 'column', 
                     alignItems: 'center', 
                     backgroundColor: 'white', 
-                    padding: 3, 
+                    padding:isMobile? 1:3, 
                     borderRadius: 2, 
                     width: '45%', 
-                    color: 'black'
+                    color: 'black',
+                    mt:isMobile? 5:0
                   }}
                 >
-                  <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', fontSize: '24px' }}>
+                  <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', fontSize: isMobile? '10px':'24px' }}>
                     Total Properties
                   </Typography>
                   <Typography variant="h4" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', marginTop: 1 }}>
-                    120
+                    {propertyList && propertyList.length > 0 ? propertyList[0].total_property : 'Loading...'}
                   </Typography>
                 </Box>
                 <Box sx={{
@@ -91,17 +277,18 @@ const similarListings = [
                     flexDirection: 'column', 
                     alignItems: 'center', 
                     backgroundColor: 'white', 
-                    padding: 3, 
+                    padding: isMobile? 1:3, 
                     borderRadius: 2, 
                     width: '45%', 
-                    color: 'black'
+                    color: 'black',
+                    mt:isMobile? 5:0
                   }}
                 >
-                  <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', fontSize: '24px' }}>
-                    Total Available Properties
+                  <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', fontSize: isMobile? '10px':'24px' }}>
+                    Total Properties Available 
                   </Typography>
                   <Typography variant="h4" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', marginTop: 1 }}>
-                    80
+                    {propertyList && propertyList.length > 0 ? propertyList[0].total_available_property : 'Loading...'}
                   </Typography>
                 </Box>
             </Box>
@@ -110,149 +297,91 @@ const similarListings = [
             <Container className='property-content-body'>
                 <Grid container row spacing={2}>
                     <Grid item size={{ md: 8 }}>
-                        <Carousel infiniteLoop autoPlay>
-                            {imageList.map((image) => (
-                                <img
-                                className="crsl-img"
-                                key={image.id}
-                                src={image.image}
-                                alt="No Image"
-                                />
-                            ))}
-                        </Carousel>
+                    <Typography variant="h5" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', marginBottom: 2 }}>
+                            List of Properties
+                        </Typography>
                     </Grid>
-                    <Grid item size={{ md: 4  }}>
-                        <Paper className='product-inquire' elevation={5} >
-                            <Grid container direction={'row'} spacing={2} sx={{width:'100%',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                                <Paper className='product-user-profile'>
-                                    <Avatar alt="Remy Sharp" src={UserImage} sx={{marginLeft:'5%'}}/>
-                                    <Box sx={{ marginLeft: 2 }}>
-                                    <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif',fontWeight:'700' }}>Remy Sharp</Typography>
-                                        <a style={{ marginTop: 1,color:'orange', cursor:'pointer    ' }}>View profile</a>
-                                    </Box>
-                                </Paper>
-                                <TextField id="outlined-basic" label="Name" variant="outlined" sx={{width:'90%'}}/>
-                                <TextField id="outlined-basic" label="Phone" variant="outlined" sx={{width:'90%'}}/>
-                                <TextField id="outlined-basic" label="Email" variant="outlined" sx={{width:'90%'}}/>
-                                <TextField
-                                    id="filled-multiline-static"
-                                    label="Hello, I am interested in…"
-                                    multiline
-                                    rows={2}
-                                    variant="outlined"
-                                    sx={{width:'90%'}}
-                                    />
-                                <Box className='product-2-background'>
-                                <a className="product-2-button" >Learn more<ArrowRightAltIcon sx={{ marginLeft: 1,color:'orange',verticalAlign: 'middle' }} /></a>
+                    <Grid item size={{md: 4  }}>
+                    <Button
+                      onClick={handleClickOpenCreateListing}
+                          variant="contained"
+                          color="primary"
+                          sx={{
+                            fontFamily: 'DM Sans, sans-serif',
+                            fontWeight: '700',
+                            fontSize: '14px',
+                            padding: '8px 16px',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            backgroundColor:'orange',
+                            ml:isMobile? 0:20,
+                            float:'right'
+                          }}
+                        >
+                          Add New Listing
+                        </Button>
+                    </Grid>
+                    <Grid container row spacing={5} sx={{marginBottom:'30px',width:'100%'}}>
+                      {propertyList.map((house)=>(
+                        <Grid item size={{ xs: 6, lg: 3 }} key={house.uid} >
+                            <Card className='container-3-card' onClick={() => navigate(`/product/${house.uid}`)} sx={{ position: 'relative' }}>
+                            <IconButton
+                                sx={{
+                                  position: 'absolute',
+                                  top: 8,
+                                  right: 40, // Adjusted position to leave space for the delete button
+                                  color: 'blue',
+                                  zIndex: 1,
+                                }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleClickOpenUpdateListing(house.uid); // Function to handle update action
+                                }}
+                              >
+                                <EditIcon />
+                              </IconButton>
+                              <IconButton
+                                sx={{
+                                  position: 'absolute',
+                                  top: 8,
+                                  right: 8,
+                                  color: 'red',
+                                  zIndex: 1,
+                                }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleClickOpenDeleteListing(house.uid)
+                                }}
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                              <CardMedia
+                                sx={{ height: 140 }}
+                                  image={`${axios.defaults.baseURL}${house.property_image}`}
+                                title="house"
+                              />
+                              <CardContent>
+                                <Typography className='card-name' gutterBottom variant="h5" component="div">
+                                  {house.property_name}
+                                </Typography>
+                              </CardContent>
+                              <CardActions disableSpacing>
+                              <Box sx={{width:'100%',alignItems: 'center', padding: 1, border: '1px solid rgba(128, 128, 128, 0.5)' }}>
+                                  <Typography variant="body2"><BedIcon sx={{ marginRight: 1,color:'black',verticalAlign: 'middle' }} />{house.no_of_rooms}</Typography> 
                                 </Box>
-                            </Grid>
-                        </Paper>
+                                
+                                <Box sx={{width:'100%',alignItems: 'center', padding: 1,border: '1px solid rgba(128, 128, 128, 0.5)' }}>
+                                  <Typography variant="body2"><BathtubIcon sx={{ marginRight: 1,color:'black',verticalAlign: 'middle' }}  />{house.no_of_bathroom}</Typography>
+                                </Box>
+                                
+                                <Box sx={{width:'100%',alignItems: 'center', padding: 1,border: '1px solid rgba(128, 128, 128, 0.5)' }}>
+                                  <Typography variant="body2"><Grid3x3Icon sx={{ marginRight: 1,color:'black',verticalAlign: 'middle' }}/>{house.no_of_grid}</Typography>
+                                </Box>
+                              </CardActions>
+                            </Card>
                     </Grid>
-                    <Grid item size={{ md: 8}}>
-                    <Paper className='product-details' elevation={5} sx={{ padding: 2, display: 'flex', flexDirection: 'column', height: '70%' }}>
-                        <Typography variant="h5" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', marginBottom: 2 }}>
-                            Details
-                        </Typography>
-
-                        {/* Icons row at the bottom */}
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', padding: 1, border: '1px solid rgba(128, 128, 128, 0.5)', flex: 1, textAlign: 'center', justifyContent: 'center' }}>
-                            <Typography variant="body2">
-                                <BedIcon sx={{ marginRight: 1, color: 'black', verticalAlign: 'middle' }} />3
-                            </Typography>
-                            </Box>
-
-                            <Box sx={{ display: 'flex', alignItems: 'center', padding: 1, border: '1px solid rgba(128, 128, 128, 0.5)', flex: 1, textAlign: 'center', justifyContent: 'center' }}>
-                            <Typography variant="body2">
-                                <BathtubIcon sx={{ marginRight: 1, color: 'black', verticalAlign: 'middle' }} />3
-                            </Typography>
-                            </Box>
-
-                            <Box sx={{ display: 'flex', alignItems: 'center', padding: 1, border: '1px solid rgba(128, 128, 128, 0.5)', flex: 1, textAlign: 'center', justifyContent: 'center' }}>
-                            <Typography variant="body2">
-                                <Grid3x3Icon sx={{ marginRight: 1, color: 'black', verticalAlign: 'middle' }} />3
-                            </Typography>
-                            </Box>
-
-                            <Box sx={{ display: 'flex', alignItems: 'center', padding: 1, border: '1px solid rgba(128, 128, 128, 0.5)', flex: 1, textAlign: 'center', justifyContent: 'center' }}>
-                            <Typography variant="body2">
-                                <GarageIcon sx={{ color: 'black', verticalAlign: 'middle' }} />3
-                            </Typography>
-                            </Box>
-
-                            <Box sx={{ display: 'flex', alignItems: 'center', padding: 1, border: '1px solid rgba(128, 128, 128, 0.5)', flex: 1, textAlign: 'center', justifyContent: 'center' }}>
-                            <Typography variant="body2">
-                                <CalendarTodayIcon sx={{ marginRight: 1, color: 'black', verticalAlign: 'middle' }} />2007
-                            </Typography>
-                            </Box>
-                        </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item size={{ md: 8 }}>
-                        <Paper className='product-description' elevation={5}>
-                        <Typography variant="h5" sx={{ padding:2, fontFamily: 'DM Sans, sans-serif', fontWeight: '700', marginBottom: 2 }}>
-                            Description
-                        </Typography>
-                        <Divider sx={{ borderColor: '#E4E4E4', width: '100%', margin: '0 auto',mt:'2%' }} />
-                        <Typography className='property-description-content' variant="h5" >
-                        At vero eos et iusto odio dignissimos ducimus, qui haec putat, ut ipsi auctori huius disciplinae placet: constituam, quid sit numeranda nec me ab illo inventore veritatis et expedita distinctio nam libero tempore, cum memoriter, tum etiam ac ratione.
-
-                            Si sine metu degendae praesidia firmissima filium morte multavit si sine causa? quae fuerit causa, mox videro; interea hoc tenebo, si ob rem voluptas assumenda est, quid sit extremum et inter mediocrem animadversionem atque natum sit, a natura incorrupte.
-
-                            Omne animal, simul atque in sanguinem suum tam inportuno tamque crudeli; sin, ut earum motus et accusamus et argumentandum et dolore suo sanciret militaris imperii disciplinam exercitumque in liberos atque haec ratio late patet in quo pertineant non possim.
-                        </Typography>
-                        </Paper>
-                    </Grid>
-                    <Grid item size={{ md: 8 }} sx={{mb:5}}>
-                    <Paper className='product-features' elevation={5}>
-                        <Typography variant="h5" sx={{ padding:4, fontFamily: 'DM Sans, sans-serif', fontWeight: '700' }}>
-                            Features
-                        </Typography>
-                        <Divider sx={{ borderColor: '#E4E4E4', width: '100%', margin: '0 auto',mt:'2%' }} />
-                        <Container sx={{ padding: 2 }}>
-                        <Stack direction="row" flexWrap="wrap" alignItems="center">
-                            <Chip icon={<CheckIcon sx={{ color: 'green !important' }} />} label="Air Condition"  sx={{ margin: '8px' }}/>
-                            <Chip icon={<CheckIcon sx={{ color: 'green !important' }} />} label="Air Condition" sx={{ margin: '8px' }}/>
-                            <Chip icon={<CheckIcon sx={{ color: 'green !important' }} />} label="Air Condition" sx={{ margin: '8px' }}/>
-                            <Chip icon={<CheckIcon sx={{ color: 'green !important' }} />} label="Air Condition" sx={{ margin: '8px' }}/>
-                            <Chip icon={<CheckIcon sx={{ color: 'green !important' }} />} label="Air Condition" sx={{ margin: '8px' }}/>
-                            <Chip icon={<CheckIcon sx={{ color: 'green !important' }} />} label="Air Condition" sx={{ margin: '8px' }}/>
-                        </Stack>
-                        </Container>
-                        </Paper>
-                    </Grid>
-                    <Grid item size={{ md: 12 }}>
-                    <Box sx={{ padding: 3 }}>
-      <Typography variant="h5" sx={{ fontFamily: 'DM Sans', fontWeight: '700', marginBottom: 2 }}>
-        Similar Listings
-      </Typography>
-      <Slider {...settings}>
-        {similarListings.map((listing) => (
-          <Box key={listing.id} sx={{ padding: '0 8px', marginBottom: 2  }}>
-            <Card className='property-card' sx={{ maxWidth: 345, cursor: 'pointer'}}>
-              <CardMedia
-                component="img"
-                height="140"
-                image={listing.image}
-                alt={listing.title}
-              />
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  {listing.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {listing.description}
-                </Typography>
-                <Typography variant="body2" sx={{ fontWeight: '700', marginTop: 1 }}>
-                  {listing.price}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Box>
-        ))}
-      </Slider>
-    </Box>
-                    </Grid>
+                      ))}
+                  </Grid>
                 </Grid>
             </Container>
             <Footer/>
