@@ -14,7 +14,7 @@
     import Tabs from '@mui/material/Tabs';
     import Tab from '@mui/material/Tab';
     import AppBar from '@mui/material/AppBar';
-    import {  Avatar, TextField, Typography,useMediaQuery,useTheme } from '@mui/material';
+    import {  Avatar, Button, IconButton, TextField, Typography,useMediaQuery,useTheme } from '@mui/material';
     import Autocomplete from '@mui/material/Autocomplete';
     import Card from '@mui/material/Card';
     import CardActions from '@mui/material/CardActions';
@@ -24,6 +24,11 @@
     import BathtubIcon from '@mui/icons-material/Bathtub';
     import Grid3x3Icon from '@mui/icons-material/Grid3x3';
     import houseImage from '../assets/house.jpg';
+    import DeleteIcon from '@mui/icons-material/Delete';  
+    import Dialog from '@mui/material/Dialog';
+import DeleteListing from '../components/modals/delete_listing';
+import CreateListing from '../components/modals/create_listing';
+
 
     const users = [
       {
@@ -36,7 +41,7 @@
         id: 2,
         name: 'John Doe',
         position: 'developer',
-        comment: 'test'
+        comment: '“Certe, inquam, pertinax non existimant oportere exquisitis rationibus conquisitis de quo enim ipsam. Torquem detraxit hosti et quidem faciunt, ut aut.”'
       },
       {
         id: 3,
@@ -94,6 +99,37 @@
         bathroom:2,
         grid:2
       },
+      {
+        id: 7,
+        name: 'Malto House',
+        file: houseImage,
+        rooms:2,
+        bathroom:2,
+        grid:2
+      },{
+        id: 8,
+        name: 'Malto House',
+        file: houseImage,
+        rooms:2,
+        bathroom:2,
+        grid:2
+      },
+      {
+        id: 9,
+        name: 'Malto House',
+        file: houseImage,
+        rooms:2,
+        bathroom:2,
+        grid:2
+      },
+      {
+        id: 10,
+        name: 'Malto House',
+        file: houseImage,
+        rooms:2,
+        bathroom:2,
+        grid:2
+      },
     ];
 
     function CustomTabLabel({user,value}) {
@@ -141,13 +177,61 @@
       const navigate = useNavigate();
       const [value, setValue] = useState(1);
       const theme = useTheme();
-      const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Adjust breakpoint as needed
-      const displayedHouses = isMobile ? houseList.slice(0, 2) : houseList; // Show only 2 on mobile
+      const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+      const displayedHouses = houseList
+      // isMobile ? houseList.slice(0, 2) : houseList.slice(0, 6);
+      const [openDeleteListing, setOpenDeleteListing] = useState(false);
+      const [openCreateListing, setOpenCreateListing] = useState(false);
+      const [selectedVal, setSelectedVal] = useState(0);
+
+      const handleClickOpenDeleteListing = (id) => {
+        setOpenDeleteListing(true);
+        setSelectedVal(id)
+      };
+
+      const handleCloseDeleteListing = () => {
+        setOpenDeleteListing(false);
+      };
+      const handleClickOpenCreateListing = () => {
+        setOpenCreateListing(true);
+      };
+
+      const handleCloseCreateListing = () => {
+        setOpenCreateListing(false);
+      };
+
     const handleChange = (event, newValue) => {
       setValue(newValue);
+      setSelectedVal(0)
     };
       return (
         <>
+        <Dialog
+            open={openDeleteListing}
+            onClose={handleCloseDeleteListing}
+            PaperProps={{
+              component: 'form',
+              onSubmit: (event) => {
+                event.preventDefault();
+                handleCloseDeleteListing();
+              },
+            }}
+          >
+            <DeleteListing handleClose={handleCloseDeleteListing}/>
+          </Dialog>
+          <Dialog
+            open={openCreateListing}
+            onClose={handleCloseCreateListing}
+            PaperProps={{
+              component: 'form',
+              onSubmit: (event) => {
+                event.preventDefault();
+                handleCloseCreateListing();
+              },
+            }}
+          >
+            <CreateListing handleClose={handleCloseCreateListing}/>
+          </Dialog>
             <Container className='container-body' maxWidth>
             <Box className='box-container-1'>
               <Header/>
@@ -214,12 +298,46 @@
                       renderInput={(text) => <TextField className='searchfield-4 search' {...text} label="Price " />}
                     />
                     </Grid>
+                    {/* <Grid item>
+                      <Button
+                      onClick={handleClickOpenCreateListing}
+                          variant="contained"
+                          color="primary"
+                          sx={{
+                            fontFamily: 'DM Sans, sans-serif',
+                            fontWeight: '700',
+                            fontSize: '16px',
+                            padding: '8px 16px',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            backgroundColor:'orange',
+                            ml:20
+                          }}
+                        >
+                          Add New Listing
+                        </Button>
+                    </Grid> */}
                   </Grid>
-                  <Box className='box-container-3-body'>
-                    <Grid container row spacing={2} >
+                  <Box className='box-container-3-body-card'>
+                    <Grid container row spacing={2}>
                       {displayedHouses.map((house)=>(
                         <Grid item size={{ xs: 6, md: 4 }} key={house.id} >
-                            <Card className='container-3-card' onClick={() => navigate(`/product/${house.id}`)}>
+                            <Card className='container-3-card' onClick={() => navigate(`/product/${house.id}`)} sx={{ position: 'relative' }}>
+                              {/* <IconButton
+                                sx={{
+                                  position: 'absolute',
+                                  top: 8,
+                                  right: 8,
+                                  color: 'red',
+                                  zIndex: 1,
+                                }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleClickOpenDeleteListing(house.id)
+                                }}
+                              >
+                                <DeleteIcon />
+                              </IconButton> */}
                               <CardMedia
                                 sx={{ height: 140 }}
                                 image={house.file}

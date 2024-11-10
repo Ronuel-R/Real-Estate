@@ -135,6 +135,16 @@
 
 }
 
+.box-container-3-body-card {
+  padding-top: 1% !important;
+  overflow-y: auto;
+  width: 100%;
+  height: 80vh;
+  padding: 20px;
+  position: relative;
+  box-sizing: border-box;
+}
+
 .text-body-3 {
   color: black;
   font-family: 'DM Sans', sans-serif;

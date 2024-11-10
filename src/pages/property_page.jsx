@@ -109,7 +109,7 @@ const similarListings = [
                                     <Avatar alt="Remy Sharp" src={UserImage} sx={{marginLeft:'5%'}}/>
                                     <Box sx={{ marginLeft: 2 }}>
                                     <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif',fontWeight:'700' }}>Remy Sharp</Typography>
-                                        <a  style={{ marginTop: 1,color:'orange' }}>View Profile</a>
+                                        <a style={{ marginTop: 1,color:'orange', cursor:'pointer    ' }}>View profile</a>
                                     </Box>
                                 </Paper>
                                 <TextField id="outlined-basic" label="Name" variant="outlined" sx={{width:'90%'}}/>
@@ -175,7 +175,7 @@ const similarListings = [
                             Description
                         </Typography>
                         <Divider sx={{ borderColor: '#E4E4E4', width: '100%', margin: '0 auto',mt:'2%' }} />
-                        <Typography variant="h5" sx={{padding:2, fontFamily: 'DM Sans, sans-serif', fontWeight: '700', marginBottom: 2,color:'black',opacity:'0.6   ' }}>
+                        <Typography className='property-description-content' variant="h5" >
                         At vero eos et iusto odio dignissimos ducimus, qui haec putat, ut ipsi auctori huius disciplinae placet: constituam, quid sit numeranda nec me ab illo inventore veritatis et expedita distinctio nam libero tempore, cum memoriter, tum etiam ac ratione.
 
                             Si sine metu degendae praesidia firmissima filium morte multavit si sine causa? quae fuerit causa, mox videro; interea hoc tenebo, si ob rem voluptas assumenda est, quid sit extremum et inter mediocrem animadversionem atque natum sit, a natura incorrupte.
@@ -209,8 +209,8 @@ const similarListings = [
       </Typography>
       <Slider {...settings}>
         {similarListings.map((listing) => (
-          <Box key={listing.id} sx={{ padding: '0 8px', marginBottom: 2 }}>
-            <Card sx={{ maxWidth: 345 }}>
+          <Box key={listing.id} sx={{ padding: '0 8px', marginBottom: 2  }}>
+            <Card className='property-card' sx={{ maxWidth: 345, cursor: 'pointer'}}>
               <CardMedia
                 component="img"
                 height="140"
