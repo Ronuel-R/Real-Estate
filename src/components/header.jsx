@@ -25,7 +25,7 @@ function Header() {
             {isMobile ? 
             <>
             {/* App Bar */}
-                <AppBar  sx={{ backgroundColor: 'transparent' }}>
+                <AppBar elevation={0} sx={{ backgroundColor: 'transparent' }}>
                     <Toolbar sx={{ justifyContent: 'space-between' }}>
                     <Typography variant="h6" sx={{ cursor: 'pointer' }} onClick={() => navigate("/")}>
                         LogoIpsum
