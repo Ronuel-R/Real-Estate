@@ -66,9 +66,9 @@ function Header() {
                             textAlign: 'center',
                             mt: 2,
                         }}
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate("/admin")}
                         >
-                        <Typography variant="button" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Typography variant="button" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} > 
                             Work with us
                             <ArrowRightAltIcon sx={{ marginLeft: 1, verticalAlign: 'middle' }} />
                         </Typography>
@@ -93,7 +93,7 @@ function Header() {
                     <a className="header-nav" onClick={() => navigate("/")}>Nav Link</a>
                 </Grid>
                 <Grid className='nav-list nav-list-background' sx={{ backgroundColor: 'orange', textAlign: 'center', height: '50px',borderTopRightRadius:'20px' }} size={2}>
-                    <a className="header-nav header-button" onClick={() => navigate("/")}>Work with us<ArrowRightAltIcon sx={{ marginLeft: 1,color:'white',verticalAlign: 'middle' }} /></a>
+                    <a className="header-nav header-button" onClick={() => navigate("/admin")}>Work with us<ArrowRightAltIcon sx={{ marginLeft: 1,color:'white',verticalAlign: 'middle' }} /></a>
                 </Grid>
             </Grid>}
             
