@@ -345,8 +345,8 @@
   }
 
   .customtabpanel {
-    width: 80%;
+    width: 80% !important;
     margin-left: 10%;
-    font-size: clamp(14px, 3vw, 20px);
+    font-size: clamp(14px, 3vw, 20px) !important;
   }
 }

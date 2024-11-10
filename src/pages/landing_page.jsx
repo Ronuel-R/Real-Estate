@@ -99,37 +99,6 @@ import CreateListing from '../components/modals/create_listing';
         bathroom:2,
         grid:2
       },
-      {
-        id: 7,
-        name: 'Malto House',
-        file: houseImage,
-        rooms:2,
-        bathroom:2,
-        grid:2
-      },{
-        id: 8,
-        name: 'Malto House',
-        file: houseImage,
-        rooms:2,
-        bathroom:2,
-        grid:2
-      },
-      {
-        id: 9,
-        name: 'Malto House',
-        file: houseImage,
-        rooms:2,
-        bathroom:2,
-        grid:2
-      },
-      {
-        id: 10,
-        name: 'Malto House',
-        file: houseImage,
-        rooms:2,
-        bathroom:2,
-        grid:2
-      },
     ];
 
     function CustomTabLabel({user,value}) {
@@ -267,7 +236,7 @@ import CreateListing from '../components/modals/create_listing';
                     <Autocomplete
                     options={options} 
                     filterOptions={(options) => options} 
-                      sx={{ width: 200 }}
+                      sx={{ width: isMobile ? 100 : 200 }}
                       renderInput={(text) => <TextField className='searchfield-1 search' {...text} label="Looking for" />}
                     />
                     </Grid>
@@ -276,7 +245,7 @@ import CreateListing from '../components/modals/create_listing';
                     options={options} 
                     filterOptions={(options) => options} 
                       disablePortal
-                      sx={{ width: 200 }}
+                      sx={{ width: isMobile ? 100 : 200 }}
                       renderInput={(text) => <TextField className='searchfield-2 search' {...text} label="Location" />}
                     />
                     </Grid>
@@ -285,7 +254,7 @@ import CreateListing from '../components/modals/create_listing';
                       options={options} 
                       filterOptions={(options) => options} 
                         disablePortal
-                        sx={{ width: 200 }}
+                        sx={{ width: isMobile ? 100 : 200 }}
                         renderInput={(text) => <TextField className='searchfield-3 search' {...text} label="Property" />}
                       />
                     </Grid>
@@ -294,7 +263,7 @@ import CreateListing from '../components/modals/create_listing';
                     options={options} 
                     filterOptions={(options) => options} 
                       disablePortal
-                      sx={{ width: 200 }}
+                      sx={{ width: isMobile ? 100 : 200 }}
                       renderInput={(text) => <TextField className='searchfield-4 search' {...text} label="Price " />}
                     />
                     </Grid>

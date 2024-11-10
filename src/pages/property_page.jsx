@@ -24,7 +24,7 @@
     import 'slick-carousel/slick/slick.css';
     import 'slick-carousel/slick/slick-theme.css';
     import Slider from 'react-slick';
-        import { Card, CardContent, CardMedia } from '@mui/material';
+    import { Card, CardContent, CardMedia,useMediaQuery, useTheme} from '@mui/material';
 
   const imageList = [
     {id: 1, image:houseImage},
@@ -44,6 +44,8 @@ const similarListings = [
 
 
   function ProductPage() {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const settings = {         
         infinite: true,         
         speed: 500,             
@@ -55,7 +57,7 @@ const similarListings = [
           {
             breakpoint: 768,      
             settings: {
-              slidesToShow: 1,    
+              slidesToShow: 2,    
             },
           },
         ],
@@ -68,7 +70,7 @@ const similarListings = [
                 <Divider sx={{ borderColor: '#FFFFFF', width: '100%',opacity:'0.1', margin: '0 auto',mt:'2%' }} />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
 
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft:  20,marginTop:2 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: isMobile ?0:20,marginTop: isMobile? 0: 2 }}>
                         <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', color: 'white', fontSize: '32px' }}>
                         Malto House
                         </Typography>
@@ -77,7 +79,7 @@ const similarListings = [
                         </Typography>
                     </Box>
                     
-                    <Box sx={{ textAlign: 'right', marginRight:  20,marginTop:4}}>
+                    <Box sx={{ textAlign: 'right', marginRight: isMobile? 5 : 20,marginTop: isMobile? 0 : 4}}>
                         <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', color: 'white', fontSize: '24px' }}>
                         $500,000
                         </Typography>
@@ -130,7 +132,7 @@ const similarListings = [
                         </Paper>
                     </Grid>
                     <Grid item size={{ md: 8}}>
-                    <Paper className='product-details' elevation={5} sx={{ padding: 2, display: 'flex', flexDirection: 'column', height: '70%' }}>
+                    <Paper className='product-details' elevation={5} sx={{ padding: 3, display: 'flex', flexDirection: 'column', height: '70%' }}>
                         <Typography variant="h5" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', marginBottom: 2 }}>
                             Details
                         </Typography>
@@ -210,7 +212,7 @@ const similarListings = [
       <Slider {...settings}>
         {similarListings.map((listing) => (
           <Box key={listing.id} sx={{ padding: '0 8px', marginBottom: 2  }}>
-            <Card className='property-card' sx={{ maxWidth: 345, cursor: 'pointer'}}>
+            <Card className='property-card' sx={{ maxWidth: isMobile ? 165:345, cursor: 'pointer'}}>
               <CardMedia
                 component="img"
                 height="140"
