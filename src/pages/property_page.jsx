@@ -70,7 +70,7 @@ const similarListings = [
                 <Divider sx={{ borderColor: '#FFFFFF', width: '100%',opacity:'0.1', margin: '0 auto',mt:'2%' }} />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
 
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: isMobile ?0:20,marginTop: isMobile? 0: 2 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: isMobile ?1:20,marginTop: isMobile? 7: 2 }}>
                         <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', color: 'white', fontSize: '32px' }}>
                         Malto House
                         </Typography>
@@ -79,7 +79,7 @@ const similarListings = [
                         </Typography>
                     </Box>
                     
-                    <Box sx={{ textAlign: 'right', marginRight: isMobile? 5 : 20,marginTop: isMobile? 0 : 4}}>
+                    <Box sx={{ textAlign: 'right', marginRight: isMobile? 1 : 20,marginTop: isMobile? 7 : 4}}>
                         <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', color: 'white', fontSize: '24px' }}>
                         $500,000
                         </Typography>

@@ -9,6 +9,10 @@
     height: 27vh !important;
     width: 100%;
     background-image: linear-gradient(225.52deg, #271A00 0.45%, rgba(0, 0, 0, 0.98) 100.47%);
+
+    @media (max-width: 768px) {
+        height: 20vh !important;
+    }
 }
 
 .property-content-body {

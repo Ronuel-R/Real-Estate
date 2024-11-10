@@ -66,25 +66,44 @@ const similarListings = [
             <Box className='property-container-1'>
                 <Header/>
                 <Divider sx={{ borderColor: '#FFFFFF', width: '100%',opacity:'0.1', margin: '0 auto',mt:'2%' }} />
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%',padding:2 }}>
 
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft:  20,marginTop:2 }}>
-                        <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', color: 'white', fontSize: '32px' }}>
-                        Malto House
-                        </Typography>
-                        <Typography variant="body2" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', color: '#FFFFFF', opacity: 0.6, fontSize: '15px' }}>
-                        3002 Foster Ave, Brooklyn, NY 11210, USA
-                        </Typography>
-                    </Box>
-                    
-                    <Box sx={{ textAlign: 'right', marginRight:  20,marginTop:4}}>
-                        <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', color: 'white', fontSize: '24px' }}>
-                        $500,000
-                        </Typography>
-                        <Typography variant="body2" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', color: '#FFFFFF', opacity: 0.6, fontSize: '15px' }}>
-                        $500 per sq meter
-                        </Typography>
-                    </Box>
+                  <Box sx={{
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    backgroundColor: 'white', 
+                    padding: 3, 
+                    borderRadius: 2, 
+                    width: '45%', 
+                    color: 'black'
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', fontSize: '24px' }}>
+                    Total Properties
+                  </Typography>
+                  <Typography variant="h4" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', marginTop: 1 }}>
+                    120
+                  </Typography>
+                </Box>
+                <Box sx={{
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    backgroundColor: 'white', 
+                    padding: 3, 
+                    borderRadius: 2, 
+                    width: '45%', 
+                    color: 'black'
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', fontSize: '24px' }}>
+                    Total Available Properties
+                  </Typography>
+                  <Typography variant="h4" sx={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700', marginTop: 1 }}>
+                    80
+                  </Typography>
+                </Box>
             </Box>
             </Box>
             
