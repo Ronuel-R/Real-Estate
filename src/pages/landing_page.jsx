@@ -24,10 +24,7 @@
     import BathtubIcon from '@mui/icons-material/Bathtub';
     import Grid3x3Icon from '@mui/icons-material/Grid3x3';
     import houseImage from '../assets/house.jpg';
-    import DeleteIcon from '@mui/icons-material/Delete';  
-    import Dialog from '@mui/material/Dialog';
-    import DeleteListing from '../components/modals/delete_listing';
-    import CreateListing from '../components/modals/create_listing';
+    import Reveal from '../components/animations';
 
 
     const users = [
@@ -149,25 +146,7 @@
       const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
       const displayedHouses = houseList
       // isMobile ? houseList.slice(0, 2) : houseList.slice(0, 6);
-      const [openDeleteListing, setOpenDeleteListing] = useState(false);
-      const [openCreateListing, setOpenCreateListing] = useState(false);
       const [selectedVal, setSelectedVal] = useState(0);
-
-      const handleClickOpenDeleteListing = (id) => {
-        setOpenDeleteListing(true);
-        setSelectedVal(id)
-      };
-
-      const handleCloseDeleteListing = () => {
-        setOpenDeleteListing(false);
-      };
-      const handleClickOpenCreateListing = () => {
-        setOpenCreateListing(true);
-      };
-
-      const handleCloseCreateListing = () => {
-        setOpenCreateListing(false);
-      };
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -178,19 +157,23 @@
             <Container className='container-body' maxWidth>
             <Box className='box-container-1'>
               <Header/>
+              <Reveal>
               <Box className='box-container-1-body'>
                   <a className="text-body" onClick={() => navigate("/")}>Beautiful homes made for you</a>
               </Box>
               <Box className='box-container-1-text'>
                   <a className="text-content" onClick={() => navigate("/")}>In oculis quidem se esse admonere interesse enim maxime placeat, facere possimus, omnis. Et quidem faciunt, ut labore et accurate disserendum et harum quidem exercitus quid.</a>
               </Box>
+              </Reveal>
               <Box className='see-all-listing'>
                   <a className="see-all-listing-text" onClick={() => navigate("/")}>See All Listing <ArrowRightAltIcon sx={{ marginLeft: 1,color:'orange',verticalAlign: 'middle' }} /></a>
               </Box>
+             
             </Box>
           <Box className='box-container-2'>
             <Box className='box-image'/>
             <Box className='box-container-2-body'>
+            <Reveal>
                     <a className="text-body-2" onClick={() => navigate("/")}>You’re in good hands</a>
                     <br />
                     <a className="text-content-2" onClick={() => navigate("/")}>Torquatos nostros? quos dolores eos, qui dolorem ipsum per se texit, ne ferae quidem se repellere, idque instituit docere sic: omne animal, simul atque integre iudicante itaque aiunt hanc quasi involuta aperiri, altera occulta quaedam et voluptatem accusantium doloremque.</a>
@@ -198,9 +181,11 @@
                     <Box className='box-container-2-background'>
                     <a className="body-2-button" onClick={() => navigate("/")}>Learn more<ArrowRightAltIcon sx={{ marginLeft: 1,color:'orange',verticalAlign: 'middle' }} /></a>
                     </Box>
+              </Reveal>
               </Box>
           </Box>
           <Box className='box-container-3'>
+          <Reveal>
               <Box className='box-container-3-body'>
                   <a className="text-body-3" onClick={() => navigate("/")}>Find your next place to live</a>
               </Box>
@@ -241,46 +226,12 @@
                       renderInput={(text) => <TextField className='searchfield-4 search' {...text} label="Price " />}
                     />
                     </Grid>
-                    {/* <Grid item>
-                      <Button
-                      onClick={handleClickOpenCreateListing}
-                          variant="contained"
-                          color="primary"
-                          sx={{
-                            fontFamily: 'DM Sans, sans-serif',
-                            fontWeight: '700',
-                            fontSize: '16px',
-                            padding: '8px 16px',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            backgroundColor:'orange',
-                            ml:20
-                          }}
-                        >
-                          Add New Listing
-                        </Button>
-                    </Grid> */}
                   </Grid>
                   <Box className='box-container-3-body-card'>
                     <Grid container row spacing={2}>
                       {displayedHouses.map((house)=>(
                         <Grid item size={{ xs: 6, md: 4 }} key={house.id} >
                             <Card className='container-3-card' onClick={() => navigate(`/product/${house.id}`)} sx={{ position: 'relative' }}>
-                              {/* <IconButton
-                                sx={{
-                                  position: 'absolute',
-                                  top: 8,
-                                  right: 8,
-                                  color: 'red',
-                                  zIndex: 1,
-                                }}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleClickOpenDeleteListing(house.id)
-                                }}
-                              >
-                                <DeleteIcon />
-                              </IconButton> */}
                               <CardMedia
                                 sx={{ height: 140 }}
                                 image={house.file}
@@ -310,10 +261,10 @@
                   </Grid>
                   </Box>  
               </Box>
-
+              </Reveal>
           </Box>
           <Box className='box-container-4'>
-          
+          <Reveal>
             <Box className='box-container-4-body'>
                     <a className="text-body-4" onClick={() => navigate("/")}>You’re in good hands</a>
                     <br />
@@ -323,10 +274,13 @@
                     <a className="body-4-button" onClick={() => navigate("/")}>Learn more<ArrowRightAltIcon sx={{ marginLeft: 1,color:'orange',verticalAlign: 'middle' }} /></a>
                     </Box>
               </Box>
+              </Reveal>
               <Box className='box-image-4'/>
+              
           </Box>
           <Box className='box-container-5'>
           <Box className='box-container-5-body'>
+            <Reveal>
                     <a className="text-body-5" onClick={() => navigate("/")}>You’re in good hands</a>
                     <br />
                     <a className="text-content-5" onClick={() => navigate("/")}>Torquatos nostros? quos dolores eos, qui dolorem ipsum per se texit, ne ferae quidem se repellere, idque instituit docere sic: omne animal, simul atque integre iudicante itaque aiunt hanc quasi involuta aperiri, altera occulta quaedam et voluptatem accusantium doloremque.</a>
@@ -334,10 +288,12 @@
                     <Box className='box-container-5-background'>
                     <a className="body-5-button" onClick={() => navigate("/")}>Learn more<ArrowRightAltIcon sx={{ marginLeft: 1,color:'white',verticalAlign: 'middle' }} /></a>
                     </Box>
+                    </Reveal> 
               </Box>
           </Box>
           <Box className='box-container-6'>
           <Box sx={{ width: '100%' }}>
+            <Reveal>
         <Box sx={{ borderColor: 'divider'}}>
         {users.map((user)=>(
           user.id === value ? (
@@ -355,6 +311,7 @@
             </Tabs>
           </AppBar>
         </Box>
+        </Reveal>
         
       </Box>
           </Box>
